@@ -1,6 +1,6 @@
-# 💰 Savingsence
+# 💰 Savingsense
 
-Savingsence is a personal finance management app developed using Angular 18, designed to help individuals track their expenses, savings, and loans in one place. This project demonstrates real-world implementation of modern web technologies and was created to showcase practical Angular development skills.
+Savingsense is a personal finance management app developed using Angular 18, designed to help individuals track their expenses, savings, and loans in one place. This project demonstrates real-world implementation of modern web technologies and was created to showcase practical Angular development skills.
 
 ---
 
@@ -40,13 +40,6 @@ This project showcases my working knowledge and hands-on experience in:
 
 ---
 
-## 📱 APK Download
-
-The app is compatible with Android.  
-You can find the APK file inside the apk/ folder.
-
----
-
 ## 🛠️ Getting Started
 ```
 # Clone the repository
@@ -65,35 +58,16 @@ Then open your browser at http://localhost:4200/
 ```
 ---
 
-## ⚙️ Build Mobile APK (Capacitor)
-```
-# Add Android platform
-npx cap add android
-
-# Copy web assets
-npx cap copy
-
-# Open in Android Studio to build the APK
-npx cap open android
-```
----
-
 ## 👨‍💻 Developer Profile
 
-Manojit Das  
-Senior Programmer | Full-Stack Developer
-📍 Kolkata, India | 📧 manojitdas55@gmail.com
+Vimalraj  
+Jr.Full-Stack Developer
+📍 Chennai, India | 📧 vimalrajvasudevan@gmail.com
 
-LinkedIn: https://www.linkedin.com/in/manojitdas55
+LinkedIn: https://www.linkedin.com/in/vimalraj1221/
 
 ---
 
 ## 🤝 Contributing
 
 This is a personal portfolio project. If you’d like to suggest improvements or report issues, feel free to fork the repo or open an issue.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
