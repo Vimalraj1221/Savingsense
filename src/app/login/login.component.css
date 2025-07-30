@@ -1,0 +1,63 @@
+/* Center the form */
+.container {
+    min-height: 100vh;
+  }
+  
+  .card {
+    background: #fff;
+    border-radius: 10px;
+  }
+  
+  .form-control {
+   
+    padding-right: 2.5rem;
+  }
+  
+  .form-label {
+    font-size: 1.1rem;
+    color: #6c757d;
+  }
+  
+  /* Floating label styling */
+  .form-control:focus ~ .form-label {
+    font-size: 0.9rem;
+    color: #007bff;
+  }
+  
+  .invalid-feedback {
+    font-size: 0.875rem;
+    color: #dc3545;
+  }
+  
+  /* Icon styling */
+  i.bi {
+    font-size: 1.2rem;
+  }
+  
+  /* Shadow and rounded borders for modern design */
+  .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-primary {
+    border-radius: 25px;
+    font-weight: bold;
+  }
+  
+
+.container {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: url('../../../public/img/background.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+}
+.card{
+  background:rgb(255 255 255 / 95%); /* Semi-transparent white for blur effect */
+
+}
+.bi.bi-eye-slash,
+.bi.bi-eye {
+  cursor: pointer;
+}

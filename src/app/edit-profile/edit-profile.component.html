@@ -1,0 +1,101 @@
+<header id="header" class="header d-flex align-items-center fixed-top">
+  <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+    <a routerLink="/dashboard" class="logo d-flex align-items-center me-auto me-xl-0">
+      <h1 class="sitename"><img src="img/logo.png" alt="logo" /></h1>
+    </a>
+    <a class="btn-getstarted" routerLink="/profile"><i class="bi bi-x-circle"></i></a>
+  </div>
+</header>
+
+<main class="main">
+  <div class="form-container d-flex flex-column align-items-center vh-100">
+      <!-- User Logo -->
+      <i class="bi bi-person-gear text-warning display-3 mb-3" data-aos="zoom-in"></i>
+      <h2 class="text-center bd-title"  data-aos="zoom-in">Update</h2> 
+ <!-- Show form only after data is loaded -->
+ <div class="form-box container">
+  <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+ <div class="row" *ngIf="isDataLoaded">
+  <div class="col-12 mb-3" data-aos="fade-up">
+      <div class="form-floating">
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="Email"
+          formControlName="email"
+        />
+        <label for="email"><i class="bi bi-envelope-at me-1 text-info"></i>Email</label>
+      </div>
+      </div>
+      <div class="col-12  mb-3"  data-aos="fade-up" data-aos-delay="100">
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          placeholder="Username"
+          formControlName="username"
+        />
+        <label for="username"><i class="bi bi-person-badge me-1 text-info"></i>Username</label>
+      </div>
+    </div>
+    <div class="col-12  mb-3"  data-aos="fade-up" data-aos-delay="200">
+      <div class="form-floating position-relative" data-aos="fade-up" data-aos-delay="200">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          class="form-control"
+          id="password"
+          placeholder="Password"
+          formControlName="password"
+        />
+        <label for="password"><i class="bi bi-shield-lock me-1 text-info"></i>Password</label>
+        <i
+          class="bi"
+          [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"
+          (click)="togglePassword()"
+          style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"
+        ></i>
+      </div>
+    </div>
+
+      <div class="col-12 text-center " data-aos="fade-up" data-aos-delay="300">
+        <button type="button" class="btn btn-outline-danger me-2" (click)="goToProfile();"><i class="bi bi-x me-1"></i> Cancel</button>
+        <button type="submit" class="btn btn-outline-primary" [disabled]="profileForm.invalid"><i class="bi bi-save me-1"></i> Update</button>
+        
+      </div>
+   
+    </div>
+  </form>
+  </div>
+  </div>
+</main>
+
+<footer id="footer" class="footer">
+  <div class="container copyright text-center mt-2 mb-5 pb-5">
+    <div class="credits">
+      Developed by <i class="bi bi-balloon text-danger mx-1"></i> Vimal Raj
+    </div>
+  </div>
+</footer>
+
+<nav class="navbar navbar-light bg-light border-top shadow d-flex fixed-bottom">
+  <div class="container-fluid justify-content-around">
+    <a class="nav-link text-dark text-center" routerLink="/dashboard">
+      <i class="bi bi-house-door-fill fs-4"></i>
+      <div class="small">Home</div>
+    </a>
+    <a class="nav-link text-dark text-center" routerLink="/expense">
+      <i class="bi bi-graph-down-arrow fs-4"></i>
+      <div class="small">Expense</div>
+    </a>
+    <a class="nav-link text-dark text-center" routerLink="/saving">
+      <i class="bi bi-graph-up-arrow fs-4"></i>
+      <div class="small">Saving</div>
+    </a>
+    <a class="nav-link text-dark text-center" routerLink="/loan">
+      <i class="bi bi-emoji-tear fs-4"></i>
+      <div class="small">Loan</div>
+    </a>
+  </div>
+</nav>

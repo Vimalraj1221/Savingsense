@@ -1,0 +1,139 @@
+<header id="header" class="header d-flex align-items-center fixed-top">
+  <div
+      class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a  routerLink="/dashboard" class="logo d-flex align-items-center me-auto me-xl-0">
+          <h1 class="sitename"><img src="img/logo.png" alt="logo" ></h1>
+      </a>
+
+      <a class="btn-getstarted" routerLink="/dashboard"><i class="bi bi-x-circle"></i></a>
+
+  </div>
+</header>
+<main class="main">
+  <div class="form-container d-flex align-items-center justify-content-center vh-100">
+    <div class="form-box container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-3 mb-3" data-aos="fade-up">
+        <div class="form-floating">
+          <select id="category" formControlName="category" class="form-select shadow-sm" (change)="onCategoryChange()">
+            <!-- <option value="">Select Category</option> -->
+            <option *ngFor="let type of expenseTypes" [value]="type">{{ type }}</option>
+          </select>
+          <label for="category"><i class="bi bi-arrow-down-up me-1 text-info"></i>Category</label>
+        </div>
+        <div *ngIf="form.get('category')?.invalid && form.get('category')?.touched" class="text-danger">
+          Category is required.
+        </div>
+      </div>
+
+     
+
+      <div *ngIf="form.get('category')?.value === 'Expense'" class="col-md-3 mb-3" data-aos="fade-up">
+        <div class="form-floating">
+          <input id="expenseAmount"  autocomplete="off"  formControlName="expenseAmount" class="form-control shadow-sm" type="number" />
+          <label for="expenseAmount"><i class="bi bi-currency-rupee me-1 text-danger"></i>Expense Amount</label>
+        </div>
+        <div *ngIf="form.get('expenseAmount')?.invalid && form.get('expenseAmount')?.touched" class="text-danger">
+          Please enter a valid expense amount.
+        </div>
+      </div>
+      <div *ngIf="form.get('category')?.value === 'Saving'" class="col-md-3 mb-3" data-aos="fade-up">
+        <div class="form-floating">
+          <input id="savingAmount"  autocomplete="off"  formControlName="savingAmount" class="form-control shadow-sm" type="number" />
+          <label for="savingAmount"><i class="bi bi-currency-rupee me-1 text-success"></i>Saving Amount</label>
+        </div>
+        <div *ngIf="form.get('savingAmount')?.invalid && form.get('savingAmount')?.touched" class="text-danger">
+          Please enter a valid saving amount.
+        </div>
+      </div>
+      <div *ngIf="form.get('category')?.value === 'Loan'" class="col-md-3 mb-3" data-aos="fade-up">
+        <div class="form-floating">
+          <input id="loanAmount"  autocomplete="off"  formControlName="loanAmount" class="form-control shadow-sm" type="number" />
+          <label for="loanAmount"><i class="bi bi-currency-rupee me-1 text-warning"></i>Loan Amount</label>
+        </div>
+        <div *ngIf="form.get('loanAmount')?.invalid && form.get('loanAmount')?.touched" class="text-danger">
+          Please enter a valid loan amount.
+        </div>
+      </div>
+
+
+      <div *ngIf="form.get('category')?.value === 'Expense'" class="col-md-3 mb-3" data-aos="fade-up">
+        <div class="form-floating">
+          <input id="expenseName" autocomplete="off" formControlName="expenseName" class="form-control shadow-sm" (input)="onExpenseNameInput($event)" />
+          <label for="expenseName"><i class="bi bi-arrow-down-square me-1 text-danger"></i>Expense Name</label>
+          <ul *ngIf="showExpenseSuggestions && filteredExpenseNames.length > 0" class="suggestion-list">
+            <li class="list-group-item list-group-item-action list-group-item-danger  rounded shadow-sm mb-1" *ngFor="let name of filteredExpenseNames" (click)="onExpenseNameSelect(name)">
+              {{ name }}
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="form.get('expenseName')?.invalid && form.get('expenseName')?.touched" class="text-danger">
+          Expense Name is required.
+        </div>
+      </div>
+      <div *ngIf="form.get('category')?.value === 'Saving'" class="col-md-3 mb-3" data-aos="fade-up">
+        <div class="form-floating">
+          <input id="savingName"  autocomplete="off"  formControlName="savingName" class="form-control shadow-sm" (input)="onSavingNameInput($event)" />
+          <label for="savingName"><i class="bi bi-arrow-up-square me-1 text-success"></i>Saving Name</label>
+          <ul *ngIf="showSavingSuggestions && filteredSavingNames.length > 0" class="suggestion-list">
+            <li class="list-group-item list-group-item-action list-group-item-success  rounded shadow-sm mb-1" *ngFor="let name of filteredSavingNames" (click)="onSavingNameSelect(name)">
+              {{ name }}
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="form.get('savingName')?.invalid && form.get('savingName')?.touched" class="text-danger">
+          Saving Name is required.
+        </div>
+      </div>
+      <div *ngIf="form.get('category')?.value === 'Loan'" class="col-md-3 mb-3" data-aos="fade-up">
+        <div class="form-floating">
+          <input id="loanName" autocomplete="off" formControlName="loanName" class="form-control shadow-sm" (input)="onLoanNameInput($event)" />
+          <label for="loanName"><i class="bi bi-emoji-tear me-1 text-warning"></i>Loan Name</label>
+          <ul *ngIf="showLoanSuggestions && filteredLoanNames.length > 0" class="suggestion-list">
+            <li class="list-group-item list-group-item-action list-group-item-danger  rounded shadow-sm mb-1" *ngFor="let name of filteredLoanNames" (click)="onLoanNameSelect(name)">
+              {{ name }}
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="form.get('loanName')?.invalid && form.get('loanName')?.touched" class="text-danger">
+          Loan Name is required.
+        </div>
+      </div>
+      
+
+      <div class="col-md-3 mb-3" data-aos="fade-up">
+        <div class="form-floating">
+          <input id="date" formControlName="date" class="form-control shadow-sm" type="date" />
+          <label for="date"><i class="bi bi-calendar-plus me-1 text-info"></i> Date</label>
+        </div>
+        <div *ngIf="form.get('date')?.invalid && form.get('date')?.touched" class="text-danger">
+          Date is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center mt-3">
+      <button type="button" class="btn  btn-lg  btn-danger me-1" (click)="close()">
+        <i class="bi bi-x me-1"></i>Close
+      </button>
+      <button type="submit" [ngClass]="isEditMode ? 'btn btn-lg btn-warning' : 'btn btn-lg btn-primary'" [disabled]="form.invalid">
+        <i class="bi" [ngClass]="isEditMode ? 'bi-pencil' : 'bi-plus'"></i>
+        {{ isEditMode ? 'Update' : 'Add' }}
+      </button>
+     
+    </div>
+  </form>
+</div>
+</div>
+</main>
+<footer id="footer" class="footer">
+
+  <div class="container copyright text-center mt-4">
+   <div class="credits">
+      Developed by <i class="bi bi-balloon text-danger mx-1"></i> Vimal Raj
+    </div>
+  </div>
+
+</footer>

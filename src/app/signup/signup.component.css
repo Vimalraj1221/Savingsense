@@ -1,0 +1,17 @@
+
+.container {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('../../../public/img/background.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+  }
+  .card{
+    background:rgb(255 255 255 / 95%); /* Semi-transparent white for blur effect */
+  
+  }
+  .bi.bi-eye-slash,
+.bi.bi-eye {
+  cursor: pointer;
+}

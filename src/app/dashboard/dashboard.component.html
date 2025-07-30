@@ -1,0 +1,390 @@
+<div class="container-fluid" >
+<header id="header" class="header d-flex align-items-center fixed-top">
+  <div
+    class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+    <a routerLink="/dashboard" class="logo d-flex align-items-center me-auto me-xl-0">
+      <h1 class="sitename"><img src="img/logo.png" alt="logo" /></h1>
+    </a>
+
+    <!-- <nav id="navmenu" class="navmenu">
+      <ul>
+        <li>
+          <a routerLink="/dashboard" class="active"><i class="bi bi-house-gear me-1"></i>Home</a>
+        </li>
+        <li><a  routerLink="/edit">Edit</a></li>               
+        <li>
+          <a routerLink="/remove"><i class="bi bi-eraser text-warning me-1"></i>Remove</a>
+        </li>
+        <li>
+          <a routerLink="/backup"><i class="bi bi-layer-backward text-secondary me-1"></i>Backup</a>
+        </li>
+        <li><a routerLink="/restore">Restore</a></li>
+        <li>
+          <a (click)="logout()"><i class="bi bi-box-arrow-right text-danger me-1"></i>Logout</a>
+        </li>
+      </ul>
+      <i class="mobile-nav-toggle d-xl-none bi bi-list" (click)="toggleMobileNav()"></i>
+    </nav> -->
+<!-- 
+    <a class="btn-getstarted" routerLink="/new"><i class="bi bi-plus me-1"></i>Add</a> -->
+    <!-- <a class="btn-getstarted"(click)="logout()"><i class="bi bi-box-arrow-right"></i></a> -->
+     
+    <a class="btn-getstarted" routerLink="/profile"><i class="bi bi-person-circle me-1"></i></a>
+  </div>
+</header>
+<main class="main">
+  <!-- Features Section -->
+  <section id="features" class="features section">
+    <div class="container mt-5 pt-5">
+      <div class="d-flex justify-content-center">
+        <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="filterType === 'daily'" data-bs-toggle="tab"
+              data-bs-target="#features-tab-1" (click)="setFilterType('daily')">
+              <h4>Daily</h4>
+            </a>
+          </li>
+          <!-- End tab nav item -->
+
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="filterType === 'monthly'" data-bs-toggle="tab"
+              data-bs-target="#features-tab-1" (click)="setFilterType('monthly')">
+              <h4>Monthly</h4>
+            </a><!-- End tab nav item -->
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="filterType === 'yearly'" data-bs-toggle="tab"
+              data-bs-target="#features-tab-1" (click)="setFilterType('yearly')">
+              <h4>Yearly</h4>
+            </a>
+          </li>
+          <!-- End tab nav item -->
+        </ul>
+      </div>
+
+      <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
+        <div class="tab-pane fade active show" id="features-tab-1">
+          <div class="row">
+            <!-- Daily Filter -->
+            <div *ngIf="filterType === 'daily'" class="mt-3 align-items-center gap-3">
+              <div class="form-floating">
+                <input id="dailyDate" type="date" class="form-control" placeholder="Select Date"
+                  [(ngModel)]="selectedDate" (change)="applyFilters()" />
+                <label for="dailyDate">Select Date</label>
+              </div>
+            </div>
+
+            <!-- Monthly Filter -->
+            <div *ngIf="filterType === 'monthly'" class="mt-3 align-items-center gap-3">
+              <div class="form-floating">
+                <input id="monthlyDate" type="month" class="form-control" placeholder="Select Month"
+                  [(ngModel)]="selectedMonth" (change)="applyFilters()" />
+                <label for="monthlyDate">Select Month</label>
+              </div>
+            </div>
+
+            <!-- Yearly Filter -->
+            <div *ngIf="filterType === 'yearly'" class="mt-3 d-flex align-items-center gap-3">
+              <div class="form-floating flex-grow-1">
+                <input id="yearlyFrom" type="date" class="form-control" placeholder="From Month"
+                  [(ngModel)]="selectedYear.from" (change)="applyFilters()" />
+                <label for="yearlyFrom">From Month</label>
+              </div>
+              <div class="form-floating flex-grow-1">
+                <input id="yearlyTo" type="date" class="form-control" placeholder="To Month"
+                  [(ngModel)]="selectedYear.to" (change)="applyFilters()" />
+                <label for="yearlyTo">To Month</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section id="features-cards" class="features-cards section my-2">
+        <div class="container">
+          <div class="row gy-4">
+
+            <!-- Expense Card -->
+            <div class="col-4 text-center" data-aos="zoom-in" data-aos-delay="100">
+              <div class="feature-box red position-relative">
+                <div (click)="navigateToNew('Expense')">
+                <i class="bi bi-graph-down-arrow"></i>
+                <h4 id="expense-amount">{{ totalExpense }}</h4>
+                <p>Expense</p>
+              </div>
+                <!-- Eye Icon (Pre-sized, does not trigger navigateToNew) -->
+                <i class="position-absolute bottom-0 start-50 translate-middle-x eye-icon"
+                  [ngClass]="showExpense ? 'bi bi-eye text-danger':'bi bi-eye-slash text-warning' "
+                  (click)="toggleExpenseVisibility()" style="cursor: pointer; font-size: 1.2rem;">
+                </i>
+              </div>
+            </div>
+
+            <!-- Saving Card -->
+            <div class="col-4 text-center" data-aos="zoom-in" data-aos-delay="200">
+              <div class="feature-box green position-relative" >
+                <div (click)="navigateToNew('Saving')">
+                <i class="bi bi-graph-up-arrow"></i>
+                <h4 id="saving-amount">{{ totalSaving }}</h4>
+                <p>Saving</p>
+              </div>
+                <!-- Eye Icon -->
+               <i class="position-absolute bottom-0 start-50 translate-middle-x eye-icon"
+                  [ngClass]="showSaving ?  'bi bi-eye text-success':'bi bi-eye-slash text-warning'"
+                  (click)="toggleSavingVisibility()" style="cursor: pointer; font-size: 1.2rem;">
+                </i>
+              </div>
+            </div>
+  <!-- Loan Card -->
+  <div class="col-4 text-center" data-aos="zoom-in" data-aos-delay="300">
+    <div class="feature-box blue position-relative">
+      <div (click)="navigateToNew('Loan')">
+      <i class="bi bi-emoji-tear"></i>
+      <h4 id="loan-amount">{{ totalLoan }}</h4>
+      <p>Loan</p>
+    </div>
+      <!-- Eye Icon (Pre-sized, does not trigger navigateToNew) -->
+      <i class="position-absolute bottom-0 start-50 translate-middle-x eye-icon"
+        [ngClass]="showLoan ? 'bi bi-eye text-info':'bi bi-eye-slash text-warning' "
+        (click)="toggleLoanVisibility()" style="cursor: pointer; font-size: 1.2rem;">
+      </i>
+    </div>
+  </div>
+            <!-- Total Amount Card -->
+            <!-- <div class="col-4 text-center" data-aos="zoom-in" data-aos-delay="300">
+              <div class="feature-box blue">
+                <i class="bi bi-currency-rupee"></i>
+                <h4 id="total-amount">{{ totalAmount }}</h4>
+                <p>Total</p>
+              </div>
+            </div> -->
+
+          </div>
+        </div>
+      </section>
+
+
+      <!-- /Features Cards Section -->
+      <div class="row">
+        <div class="col-lg-12 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
+
+          <!-- Expense Section -->
+          <div *ngIf="filteredExpenses.length > 0 && showExpense" class="d-flex justify-content-between align-items-center">
+            <h3  data-aos="fade-up" data-aos-delay="100">
+              Expense
+            </h3>
+            <div class="position-relative w-50">
+              <input 
+                type="text" 
+                class="form-control pe-4" 
+                placeholder="Search Expense" 
+                [(ngModel)]="expenseSearchTerm"
+              />
+              <i 
+                *ngIf="expenseSearchTerm" 
+                class="bi bi-x-circle-fill text-warning position-absolute top-50 end-0 translate-middle-y me-2"
+                style="cursor: pointer; font-size: 1.2rem;"
+                (click)="expenseSearchTerm = ''">
+              </i>
+            </div>
+          </div>
+          <ul class="list-unstyled" *ngIf="showExpense">
+            <li *ngFor="let item of filteredExpenses  | filterByName: expenseSearchTerm"
+              class="p-2 mb-2 list-group-item rounded shadow-sm" data-aos="zoom-in" data-aos-delay="200">
+              <div (click)="item.isExpanded = !item.isExpanded"
+                class="d-flex justify-content-between align-items-center">
+                <i class="bi bi-arrow-down-circle-fill text-danger me-2"></i>
+                <span class="flex-grow-1">{{ item.name }}</span>
+                <span class="fw-bold text-danger">{{
+                  item.amount | currency : "INR"
+                  }}</span>
+              </div>
+              <!-- Details List -->
+              <ul *ngIf="item.isExpanded" class="list-unstyled mt-2">
+                <li *ngFor="let detail of item.details"
+                  class="detail-item position-relative p-2 mb-2 list-group-item rounded shadow-sm"
+                  [class.swiped-left]="detail.isSwiped" (touchstart)="onTouchStart($event)"
+                  (touchmove)="onTouchMove($event, detail)" (touchend)="onTouchEnd(detail)"
+                  style="border-left: 2px solid red" data-aos="fade-up" data-aos-delay="300">
+                  <div class="content d-flex justify-content-between">
+                    <span>{{ detail.date | date : "mediumDate" }}</span>
+                    <span class="fw-bold text-danger ms-2">{{
+                      detail.expenseAmount | currency : "INR"
+                      }}</span>
+                  </div>
+                  <div class="actions">
+                    <button title="Edit" class="btn btn-outline-primary me-2" (click)="editDetail(detail)">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button title="Delete" class="btn btn-danger" (click)="deleteDetail(detail)">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <!-- Saving Section -->
+          <div *ngIf="filteredSavings.length > 0 && showSaving" class="d-flex justify-content-between align-items-center">
+            <h3  data-aos="fade-up" data-aos-delay="100">
+              Saving
+            </h3>
+            <div class="position-relative w-50">
+              <input 
+                type="text" 
+                class="form-control pe-4" 
+                placeholder="Search Saving" 
+                [(ngModel)]="savingSearchTerm"
+              
+              />
+              <i 
+                *ngIf="savingSearchTerm" 
+                class="bi bi-x-circle-fill text-warning position-absolute top-50 end-0 translate-middle-y me-2"
+                style="cursor: pointer; font-size: 1.2rem;"
+                (click)="savingSearchTerm = ''">
+              </i>
+            </div>
+          </div>
+          <ul class="list-unstyled" *ngIf="showSaving">
+            <li *ngFor="let item of filteredSavings | filterByName: savingSearchTerm"
+              class="p-2 mb-2 list-group-item rounded shadow-sm" data-aos="zoom-in" data-aos-delay="200">
+              <div (click)="item.isExpanded = !item.isExpanded"
+                class="d-flex justify-content-between align-items-center">
+                <i class="bi bi-arrow-up-circle-fill text-success me-2"></i>
+                <span class="flex-grow-1">{{ item.name }}</span>
+                <span class="fw-bold text-success">{{
+                  item.amount | currency : "INR"
+                  }}</span>
+              </div>
+              <!-- Details List -->
+              <ul *ngIf="item.isExpanded" class="mt-2 list-unstyled">
+                <li *ngFor="let detail of item.details"
+                  class="detail-item position-relative p-2 mb-2 list-group-item rounded shadow-sm"
+                  [class.swiped-left]="detail.isSwiped" (touchstart)="onTouchStart($event)"
+                  (touchmove)="onTouchMove($event, detail)" (touchend)="onTouchEnd(detail)"
+                  style="border-left: 2px solid green" data-aos="fade-up" data-aos-delay="300">
+                  <div class="content d-flex justify-content-between">
+                    <span>{{ detail.date | date : "mediumDate" }}</span>
+                    <span class="fw-bold text-success ms-2">{{
+                      detail.savingAmount | currency : "INR"
+                      }}</span>
+                  </div>
+                  <div class="actions">
+                    <button title="Edit" class="btn btn-outline-primary me-2" (click)="editDetail(detail)">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button title="Delete" class="btn btn-danger" (click)="deleteDetail(detail)">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+
+   <!-- Loan Section -->
+   <div *ngIf="filteredLoan.length > 0 && showLoan" class="d-flex justify-content-between align-items-center">
+    <h3  data-aos="fade-up" data-aos-delay="100">
+      Loan
+    </h3>
+    <div class="position-relative w-50">
+      <input 
+        type="text" 
+        class="form-control pe-4" 
+        placeholder="Search Loan" 
+        [(ngModel)]="loanSearchTerm"
+      />
+      <i 
+        *ngIf="loanSearchTerm" 
+        class="bi bi-x-circle-fill text-warning position-absolute top-50 end-0 translate-middle-y me-2"
+        style="cursor: pointer; font-size: 1.2rem;"
+        (click)="loanSearchTerm = ''">
+      </i>
+    </div>
+  </div>
+  <ul class="list-unstyled" *ngIf="showLoan">
+    <li *ngFor="let item of filteredLoan  | filterByName: loanSearchTerm"
+      class="p-2 mb-2 list-group-item rounded shadow-sm" data-aos="zoom-in" data-aos-delay="200">
+      <div (click)="item.isExpanded = !item.isExpanded"
+        class="d-flex justify-content-between align-items-center">
+        <i class="bi bi-emoji-tear text-info me-2"></i>
+        <span class="flex-grow-1">{{ item.name }}</span>
+        <span class="fw-bold text-info">{{
+          item.amount | currency : "INR"
+          }}</span>
+      </div>
+      <!-- Details List -->
+      <ul *ngIf="item.isExpanded" class="list-unstyled mt-2">
+        <li *ngFor="let detail of item.details"
+          class="detail-item position-relative p-2 mb-2 list-group-item rounded shadow-sm"
+          [class.swiped-left]="detail.isSwiped" (touchstart)="onTouchStart($event)"
+          (touchmove)="onTouchMove($event, detail)" (touchend)="onTouchEnd(detail)"
+          style="border-left: 2px solid rgb(0, 149, 255)" data-aos="fade-up" data-aos-delay="300">
+          <div class="content d-flex justify-content-between">
+            <span>{{ detail.date | date : "mediumDate" }}</span>
+            <span class="fw-bold text-info ms-2">{{
+              detail.loanAmount | currency : "INR"
+              }}</span>
+          </div>
+          <div class="actions">
+            <button title="Edit" class="btn btn-outline-primary me-2" (click)="editDetail(detail)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button title="Delete" class="btn btn-danger" (click)="deleteDetail(detail)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /Features Section -->
+</main>
+<footer id="footer" class="footer">
+  <div class="container copyright text-center mt-2 mb-5 pb-5">
+    <div class="credits">
+      Developed by <i class="bi bi-balloon text-danger mx-1"></i> Vimalraj
+    </div>
+  </div>
+</footer>
+<!-- Bootom -->
+<a routerLink="/new" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+    class="bi bi-plus"></i></a>
+    <nav class="navbar navbar-light bg-light border-top shadow d-flex fixed-bottom">
+      <div class="container-fluid  justify-content-around">
+        
+        <!-- Home -->
+        <a class="nav-link text-dark text-center activated"  routerLink="/dashboard">
+          <i class="bi bi-house-door-fill fs-4"></i>
+          <div class="small">Home</div>
+        </a>
+    
+        <!-- Expenses -->
+        <a class="nav-link text-dark text-center"  routerLink="/expense">
+          <i class="bi bi-graph-down-arrow fs-4"></i>
+          <div class="small">Expense</div>
+        </a>
+    
+        <!-- Savings -->
+        <a class="nav-link text-dark text-center"  routerLink="/saving">
+          <i class="bi bi-graph-up-arrow fs-4"></i>
+          <div class="small">Saving</div>
+        </a>
+    
+        <!-- Profile -->
+        <a class="nav-link text-dark text-center"  routerLink="/loan">
+          <i class="bi bi-emoji-tear fs-4"></i>
+          <div class="small">Loan</div>
+        </a>
+    
+      </div>
+    </nav>
+  </div>

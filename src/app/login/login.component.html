@@ -1,0 +1,88 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg p-4 rounded w-100" style="max-width: 400px;">
+      <div class="text-center mb-4">
+        <img src="img/Savingsense.png" alt="Logo" class="mb-3" style="width: 50px; height: 50px;">
+        <h3>Savingsense Login</h3>
+      </div>
+      
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Username input with floating label -->
+        <div class="mb-3 form-floating">
+          <input 
+            type="text" 
+            autocomplete="off"
+            class="form-control form-control-lg" 
+            id="username" 
+            formControlName="username" 
+            placeholder="Username" 
+            required
+          />
+          <label for="username">Username</label>
+          <i class="bi bi-person position-absolute top-50 end-0 translate-middle-y me-3"></i>
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors?.required">Username is required</div>
+            <div *ngIf="f.username.errors?.minlength">Username must be at least 4 characters long</div>
+          </div>
+        </div>
+  
+        <!-- Password input with floating label -->
+        <!-- <div class="mb-3 form-floating">
+          <input 
+            type="password" 
+            autocomplete="off"
+            class="form-control form-control-lg" 
+            id="password" 
+            formControlName="password" 
+            placeholder="Password" 
+            required
+          />
+          <label for="password">Password</label>
+          <i class="bi bi-lock position-absolute top-50 end-0 translate-middle-y me-3"></i>
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors?.required">Password is required</div>
+            <div *ngIf="f.password.errors?.minlength">Password must be at least 6 characters long</div>
+          </div>
+        </div> -->
+        <div class="mb-3 form-floating">
+          <input
+            type="{{ passwordType }}" 
+            autocomplete="off"
+            class="form-control form-control-lg"
+            id="password"
+            formControlName="password"
+            placeholder="Password"
+            required
+          />
+          <label for="password">Password</label>
+          <i
+          class="bi 
+          {{ passwordType === 'password' ? 'bi-eye-slash text-warning' : 'bi-eye text-success' }} 
+          position-absolute top-50 end-0 translate-middle-y me-3" 
+            (click)="togglePasswordVisibility()"
+          ></i>
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors?.required">Password is required</div>
+            <div *ngIf="f.password.errors?.minlength">
+              Password must be at least 6 characters long
+            </div>
+          </div>
+        </div>
+  
+        <!-- Login button -->
+        <div class="d-flex justify-content-between align-items-center">
+          <button type="submit" class="btn btn-primary w-100 mt-3" [disabled]="loginForm.invalid">Login</button>
+        </div>
+        
+        <!-- Sign up link -->
+        <div class="text-center mt-3">
+          <p>Don't have an account? <a (click)="onSignup()" class="text-primary" style="cursor: pointer;">Sign Up</a></p>
+        </div>
+  
+        <!-- Error message -->
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+          {{ errorMessage }}
+        </div>
+      </form>
+    </div>
+  </div>
+  

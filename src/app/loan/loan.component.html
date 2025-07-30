@@ -1,0 +1,199 @@
+<div class="container-fluid" >
+    <header id="header" class="header d-flex align-items-center fixed-top">
+        <div
+          class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+          <a routerLink="/dashboard" class="logo d-flex align-items-center me-auto me-xl-0">
+            <h1 class="sitename"><img src="img/logo.png" alt="logo" /></h1>
+          </a>
+      
+          <!-- <nav id="navmenu" class="navmenu">
+            <ul>
+              <li>
+                <a routerLink="/dashboard" class="active"><i class="bi bi-house-gear me-1"></i>Home</a>
+              </li>
+              <li><a  routerLink="/edit">Edit</a></li>       
+              <li>
+                <a routerLink="/remove"><i class="bi bi-eraser text-warning me-1"></i>Remove</a>
+              </li> 
+              <li>
+                <a routerLink="/backup"><i class="bi bi-layer-backward text-secondary me-1"></i>Backup</a>
+              </li>
+              <li><a routerLink="/restore">Restore</a></li> 
+              <li>
+                <a (click)="logout()"><i class="bi bi-box-arrow-right text-danger me-1"></i>Logout</a>
+              </li>
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list" (click)="toggleMobileNav()"></i>
+          </nav> -->
+      <!-- 
+          <a class="btn-getstarted" routerLink="/new"><i class="bi bi-plus me-1"></i>Add</a> -->
+          <!-- <a class="btn-getstarted"(click)="logout()"><i class="bi bi-box-arrow-right"></i></a> -->
+          <a class="btn-getstarted" routerLink="/profile"><i class="bi bi-person-circle me-1"></i></a>
+        </div>
+      </header>
+      <main class="main">
+         <!-- Features Section -->
+    <section id="features" class="features section">
+      <div class="container mt-5 pt-5">
+        <div class="d-flex justify-content-center">
+          <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="filterType === 'daily'" data-bs-toggle="tab"
+                data-bs-target="#features-tab-1" (click)="setFilterType('daily')">
+                <h4>Daily</h4>
+              </a>
+            </li>
+            <!-- End tab nav item -->
+  
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="filterType === 'monthly'" data-bs-toggle="tab"
+                data-bs-target="#features-tab-1" (click)="setFilterType('monthly')">
+                <h4>Monthly</h4>
+              </a><!-- End tab nav item -->
+            </li>
+  
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="filterType === 'yearly'" data-bs-toggle="tab"
+                data-bs-target="#features-tab-1" (click)="setFilterType('yearly')">
+                <h4>Yearly</h4>
+              </a>
+            </li>
+            <!-- End tab nav item -->
+          </ul>
+        </div>
+        <section id="features-cards" class="features-cards section my-2">
+          <div class="container">
+            <div class="row gy-4">
+  
+              <!-- Loan Card -->
+              <div class="col-12 text-center" data-aos="zoom-in" data-aos-delay="200">
+                <div class="feature-box blue position-relative" >
+                  <div (click)="navigateToNew('Loan')">
+                  <i class="bi bi-emoji-tear"></i>
+                  <h4 id="loan-amount">{{ totalLoan }}</h4>
+                  <p>Loan</p>
+                </div>
+                </div>
+              </div>
+  
+            </div>
+          </div>
+        </section>
+  
+
+
+        <!-- <div class="mt-4">
+            <ul class="list-group" data-aos="fade-up">
+              <li *ngFor="let key of getSavingKeys()" class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center" (click)="groupedSavings[key].expanded = !groupedSavings[key].expanded">
+                  <span class="fw-bold">{{ key }}</span>
+                  <span class="text-danger fw-bold">{{ groupedSavings[key].total | currency: 'INR' }}</span>
+                  <i class="bi" [ngClass]="groupedSavings[key].expanded ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+                </div>
+      
+                <ul *ngIf="groupedSavings[key].expanded" class="list-unstyled mt-2" data-aos="zoom-in">
+                  <li *ngFor="let item of groupedSavings[key].items" class="p-2 mb-2 list-group-item rounded shadow-sm">
+                    <div class="d-flex justify-content-between">
+                      <span>{{ item.SavingName }}</span>
+                      <span class="text-danger fw-bold">{{ item.SavingAmount | currency: 'INR' }}</span>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div> -->
+</div>
+</section>  
+  <!-- /Features Cards Section -->
+      <div class="row">
+        <div class="col-lg-12 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
+
+          <!-- Saving Section -->
+          <!-- <div  class="d-flex justify-content-between align-items-center">
+            <h3  data-aos="fade-up" data-aos-delay="100">
+              Saving
+            </h3>
+            <div class="position-relative w-50">
+              <input 
+                type="text" 
+                class="form-control pe-4" 
+                placeholder="Search Saving" 
+                [(ngModel)]="SavingSearchTerm"
+                data-aos="fade-left" 
+                data-aos-delay="100" 
+              />
+              <i 
+                *ngIf="SavingSearchTerm" 
+                class="bi bi-x-circle-fill text-warning position-absolute top-50 end-0 translate-middle-y me-2"
+                style="cursor: pointer; font-size: 1.2rem;"
+                (click)="SavingSearchTerm = ''">
+              </i>
+            </div>
+          </div> -->
+          <ul class="list-unstyled" >
+            <li *ngFor="let key of getLoanKeys() | filterByName: LoanSearchTerm"
+              class="p-2 mb-2 list-group-item rounded shadow-sm" data-aos="zoom-in" data-aos-delay="200">
+              <div (click)="groupedLoan[key].expanded = !groupedLoan[key].expanded"
+                class="d-flex justify-content-between align-items-center">
+                <i class="bi bi-emoji-tear text-info me-2"></i>
+                <span class="flex-grow-1"> {{ formatDateKey(key, filterType) }}</span>
+                <span class="fw-bold text-info">{{ groupedLoan[key].total | currency: 'INR' }}</span>
+              </div>
+              <!-- Details List -->
+              <ul *ngIf="groupedLoan[key].expanded" class="list-unstyled mt-2">
+                <li *ngFor="let item of groupedLoan[key].items"
+                  class="detail-item position-relative p-2 mb-2 list-group-item rounded shadow-sm"
+                 
+                  style="border-left: 2px solid rgb(0, 162, 255)" data-aos="fade-up" data-aos-delay="300">
+                  <div class="content d-flex justify-content-between">
+                    <span>{{ item.loanName }}</span>
+                    <span class="fw-bold text-info ms-2">{{ item.loanAmount | currency: 'INR' }}</span>
+                  </div>
+                 
+                </li>
+              </ul>
+            </li>
+          </ul>
+          </div>
+</div>
+        </main>
+        <footer id="footer" class="footer">
+          <div class="container copyright text-center  mt-2 mb-5 pb-5">
+            <div class="credits">
+              Developed by <i class="bi bi-balloon text-danger mx-1"></i> Vimal Raj
+            </div>
+          </div>
+        </footer>
+      <!-- Bootom -->
+      <a (click)="navigateToNew('Loan')" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+          class="bi bi-plus"></i></a>
+<nav class="navbar navbar-light bg-light border-top shadow d-flex fixed-bottom">
+    <div class="container-fluid  justify-content-around">
+      
+      <!-- Home -->
+      <a class="nav-link text-dark text-center"  routerLink="/dashboard">
+        <i class="bi bi-house-door-fill fs-4"></i>
+        <div class="small">Home</div>
+      </a>
+  
+      <!-- Expenses -->
+      <a class="nav-link text-dark text-center "  routerLink="/expense">
+        <i class="bi bi-graph-down-arrow fs-4"></i>
+        <div class="small">Expense</div>
+      </a>
+  
+      <!-- Savings --> 
+      <a class="nav-link text-dark text-center" routerLink="/saving">
+        <i class="bi bi-graph-up-arrow fs-4"></i>
+        <div class="small">Saving</div>
+      </a>
+  
+      <!-- Profile -->
+      <a class="nav-link text-dark text-center activated" routerLink="/loan">
+        <i class="bi bi-emoji-tear fs-4"></i>
+        <div class="small">Loan</div>
+      </a>
+  
+    </div>
+  </nav>
+</div>

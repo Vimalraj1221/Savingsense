@@ -1,0 +1,83 @@
+<header id="header" class="header d-flex align-items-center fixed-top">
+  <div
+      class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a  routerLink="/dashboard" class="logo d-flex align-items-center me-auto me-xl-0">
+          <h1 class="sitename"><img src="img/logo.png" alt="logo" ></h1>
+      </a>
+
+      <a class="btn-getstarted" routerLink="/dashboard"><i class="bi bi-x"></i></a>
+
+  </div>
+</header>
+<main class="main">
+<div class="container pt-5 mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="text-primary">Remove</h3>
+    <button class="btn btn-danger" (click)="deleteSelectedData()" [disabled]="selectedItems.length === 0">
+      Delete Selected
+    </button>
+  </div>
+
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search here.."
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="searchData()"
+      aria-label="Search by Category"
+    />
+    <span class="input-group-text">
+      <i class="bi bi-search"></i>
+    </span>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle" data-aos="fade-up" data-aos-delay="100">
+      <thead class="table-dark text-center">
+        <tr>
+          <th><input type="checkbox" (change)="selectAll($event)" title="Select All" /></th>
+          <th>#</th>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data; let i = index"  data-aos="fade-up" data-aos-delay="200">
+          <td class="text-center"><input type="checkbox" (change)="toggleSelection(item)" title="Select" /></td>
+          <td class="text-center">{{ i + 1 }}</td>
+          <td>
+            <div class="d-flex flex-column">
+              <span [ngClass]="{'text-danger fw-bold ': item.category === 'Expense', 'text-success fw-bold ': item.category === 'Saving'}">{{ item.category === 'Expense' ? item.expenseName : item.savingName }}</span>
+              <span  class="text-info">{{ item.date | date: 'mediumDate' }}</span> 
+            </div>
+          </td>
+          <td class="text-end">
+            <span [ngClass]="{'text-danger': item.category === 'Expense', 'text-success': item.category === 'Saving'}" class="fw-bold">
+              {{ (item.category === 'Expense' ? item.expenseAmount : item.savingAmount) | currency: 'INR' }}
+            </span>
+            
+          </td>
+          <td class="text-center">
+            <button title="Delete" class="btn btn-sm btn-outline-danger" (click)="showDeleteConfirmation(item.id)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+</div>
+</main>
+<footer id="footer" class="footer">
+
+  <div class="container copyright text-center mt-4">
+   <div class="credits">
+      Developed by <i class="bi bi-balloon text-danger mx-1"></i> Vimal Raj
+    </div>
+  </div>
+
+</footer>
